@@ -1,28 +1,51 @@
-# Project Title
+# How to install Plex Media Server on Linux
 
-One Paragraph of the project description
-
-Initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2). But the page cannot open anymore so that is why I have moved it here.
+This writeup will cover how to install Plex Media Server on a linux machines to self-host your own media server.
 
 ## Getting Started
 
-These instructions will give you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+To start, you can run Plex in many ways whether in a docker container, to off a nas, or how this will cover in a virtual machine off a server. This can also be a standalone box running a flavor of linux. For this, I am going to use Ubuntu server 20.04 LTS.
+
+For system requirements, Plex recommends at least an intel core i3, this varies by how many people you intend to use your server. I typically give my Vm’s 2 cores for plex.
+
+For ram, at least 2 gb but this also will need to vary depending on how many users there will be.
+I would advise to give the VM a drive of 50 gb and host the media off the machine in a nas or network drive.
+
 
 ### Prerequisites
 
-Requirements for the software and other tools to build, test and push 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+Power your new (or old) linux machine up and make sure is it all updated.
+
+Run:
+
+    sudo apt update
+
+and
+
+    sudo apt upgrade -y
+
+After the machine is up to date, we are ready to install Plex.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development
-environment running
+In your linux machine, make a new directory for the plex installer.
 
-Say what the step will be
+    sudo mkdir PlexInstaller
+
+then navigate to The official plex site and under download, find the latest version of Plex Server for linux.
+
+    https://www.plex.tv/media-server-downloads/#plex-media-server
+
+From there, Select Linux, there will be a button for Choose Distro, click on that then a menu of flavors will open.
+
+![image](https://user-images.githubusercontent.com/63487881/214430325-499dd4a0-6bcd-4e70-b1d1-c7ea1330c7b4.png)
+
+![image](https://user-images.githubusercontent.com/63487881/214430380-6747df8c-798c-4b11-a119-9ce6f3a90caf.png)
+
+Right click on the flavor of linux you are running and click copy link in the menu that opens.
+
+
+After grabbing the link to the latest version
 
     Give the example
 
