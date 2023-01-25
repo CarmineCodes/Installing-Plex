@@ -55,69 +55,72 @@ change directories into the new directory and wget the link you copied.
  
  ![image](https://user-images.githubusercontent.com/63487881/214473479-6dfd956f-b654-4662-8af6-f7d548823680.png)
 
-after getting the installer
-And repeat
+after getting the installer, add execution right to the file so we can run the installer. To do this, run the following command
 
-    until finished
+    sudo chmod +x the file name
 
-End with an example of getting some data out of the system or using it
-for a little demo
+you will be prompted to enter your password and then the new file rights will be added, you can check with
 
-## Running the tests
+    ls -lah
+  
+then you will see 
 
-Explain how to run the automated tests for this system
+![image](https://user-images.githubusercontent.com/63487881/214562179-2eb86adc-9c46-43db-acbb-bdb3f80b8e0d.png)
 
-### Sample Tests
+    -rwxrwxr-x
+ 
+this shows that the file has execution permissions added to it.
 
-Explain what these tests test and why
+Now the installer is ready to be ran.
 
-    Give an example
+To run the installer use
 
-### Style test
+    ./thefilename
+    
+This will run the installer we downloaded and begin to download it onto the machine.
 
-Checks if the best practices and the right coding style has been used.
+After the installer is finished, plex is done installing and is ready to use.
 
-    Give an example
+We do need to add it to the firewall on the machine, to do this run
 
-## Deployment
+    sudo ufw allow 32400
+   
+This will open the port on the machine to allow Plex traffic to head outbound.
 
-Add additional notes to deploy this on a live system
+If you get an error that ufw isnt installed, run
 
-## Built With
+    sudo apt install ufw
 
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
+This will install ufw, after that run the command to open the port again and it will open it up.
 
-## Contributing
+## Updating Plex
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+When Plex releases new updates, you should read over the release notes and make sure its nothing to drastic and you feel comfortale installing the newest version. The easiest way to do this is to add the Plex repo to all the repos your machine uses when you update it. To do this run the command below
 
-## Versioning
+    echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
 
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+then
 
-## Authors
+    curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
 
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
+Now the plex repos are added so when you update your machine it will also update Plex.
 
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
+### Accessing Plex
 
-## License
+Now that Plex is installed you are ready to access it, to do so you will go to the IP address of the machine with port 32400
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
+    hostip:32400
+    
+ There you should see the welcome screen asking you to sign in or make an account.
 
-## Acknowledgments
+After you make your account, plex is ready to be used, you can connect a drive of media however you'd like and start streaming.
 
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc
+### Resources
+
+Plex Download
+    
+    https://www.plex.tv/media-server-downloads/#plex-media-server
+    
+Repos to update Plex
+
+    https://tcude.net/updating-plex-media-server-on-linux/
