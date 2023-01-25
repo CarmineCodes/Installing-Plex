@@ -47,8 +47,15 @@ Right click on the flavor of linux you are running and click copy link in the me
 
 After grabbing the link to the latest version
 
-    Give the example
+change directories into the new directory and wget the link you copied.
 
+    wget paste the link
+ 
+ The output should like like this
+ 
+ ![image](https://user-images.githubusercontent.com/63487881/214473479-6dfd956f-b654-4662-8af6-f7d548823680.png)
+
+after getting the installer
 And repeat
 
     until finished
