@@ -1,10 +1,10 @@
 # How to install Plex Media Server on Linux
 
-This writeup will cover how to install Plex Media Server on a linux machines to self-host your own media server.
+This writeup will cover how to install Plex Media Server on a Linux machine to self-host your own media server.
 
 ## Getting Started
 
-To start, you can run Plex in many ways whether in a docker container, to off a nas, or how this will cover in a virtual machine off a server. This can also be a standalone box running a flavor of linux. For this, I am going to use Ubuntu server 20.04 LTS.
+To start, you can run Plex in many ways whether in a docker container, to off a nas, or how this will cover in a virtual machine off a server. This can also be a standalone box running a flavor of Linux. For this, I am going to use Ubuntu server 20.04 LTS.
 
 For system requirements, Plex recommends at least an intel core i3, this varies by how many people you intend to use your server. I typically give my Vm’s 2 cores for plex.
 
@@ -14,7 +14,7 @@ I would advise to give the VM a drive of 50 gb and host the media off the machin
 
 ### Prerequisites
 
-Power your new (or old) linux machine up and make sure is it all updated.
+Power your new (or old) Linux machine up and make sure is it all updated.
 
 Run:
 
@@ -28,11 +28,11 @@ After the machine is up to date, we are ready to install Plex.
 
 ### Installing
 
-In your linux machine, make a new directory for the plex installer.
+In your Linux machine, make a new directory for the plex installer.
 
     sudo mkdir PlexInstaller
 
-then navigate to The official plex site and under download, find the latest version of Plex Server for linux.
+then navigate to the official plex site and under download, find the latest version of Plex Server for Linux.
 
     https://www.plex.tv/media-server-downloads/#plex-media-server
 
@@ -42,52 +42,42 @@ From there, Select Linux, there will be a button for Choose Distro, click on tha
 
 ![image](https://user-images.githubusercontent.com/63487881/214430380-6747df8c-798c-4b11-a119-9ce6f3a90caf.png)
 
-Right click on the flavor of linux you are running and click copy link in the menu that opens.
+Right click on the flavor of Linux you are running and click copy link in the menu that opens.
 
 
 After grabbing the link to the latest version
 
 change directories into the new directory and wget the link you copied.
 
-    wget paste the link
+    sudo wget paste the link.
  
- The output should like like this
+ The output should like look this
  
  ![image](https://user-images.githubusercontent.com/63487881/214473479-6dfd956f-b654-4662-8af6-f7d548823680.png)
 
-after getting the installer, add execution right to the file so we can run the installer. To do this, run the following command
+after getting the installer, we need to run the dpkg to install the plex server software onto our machine.
 
-    sudo chmod +x the file name
+Replace "latestVersion" with the latest version id found on the plex download site. it should look similar to this.
 
-you will be prompted to enter your password and then the new file rights will be added, you can check with
+![image](https://user-images.githubusercontent.com/63487881/214602507-e59eb931-f35a-435e-bbeb-11e2e512303b.png)
 
-    ls -lah
-  
-then you will see 
+then add the latest version number to the command below in place of "latestVersion"
 
-![image](https://user-images.githubusercontent.com/63487881/214562179-2eb86adc-9c46-43db-acbb-bdb3f80b8e0d.png)
+    sudo dpkg -i plexmediaserver_latestVersion_amd64.deb
 
-    -rwxrwxr-x
- 
-this shows that the file has execution permissions added to it.
+dpkg will work to install the software and after it is done we are almost ready.
 
-Now the installer is ready to be ran.
+just in case, we are going to open the port on the machine for plex to reach out.
 
-To run the installer use
+Plex uses port 32400 and we are going to open it with ufw.
 
-    ./thefilename
-    
-This will run the installer we downloaded and begin to download it onto the machine.
-
-After the installer is finished, plex is done installing and is ready to use.
-
-We do need to add it to the firewall on the machine, to do this run
+Run the command.
 
     sudo ufw allow 32400
    
 This will open the port on the machine to allow Plex traffic to head outbound.
 
-If you get an error that ufw isnt installed, run
+If you get an error that ufw isn’t installed, run
 
     sudo apt install ufw
 
@@ -95,7 +85,7 @@ This will install ufw, after that run the command to open the port again and it 
 
 ## Updating Plex
 
-When Plex releases new updates, you should read over the release notes and make sure its nothing to drastic and you feel comfortale installing the newest version. The easiest way to do this is to add the Plex repo to all the repos your machine uses when you update it. To do this run the command below
+When Plex releases new updates, you should read over the release notes and make sure it’s nothing to drastic and you feel comfortable installing the newest version. The easiest way to do this is to add the Plex repo to all the repos your machine uses when you update it. To do this run the command below.
 
     echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
 
@@ -105,11 +95,19 @@ then
 
 Now the plex repos are added so when you update your machine it will also update Plex.
 
+So, when you run 
+
+    sudo apt update
+&
+    sudo apt upgrade
+    
+Plex will automatically update as well.
+
 ### Accessing Plex
 
-Now that Plex is installed you are ready to access it, to do so you will go to the IP address of the machine with port 32400
+Now that Plex is installed you are ready to access it, to do so you will go to the IP address of the machine with port 32400.
 
-    hostip:32400
+    hostip:32400/web
     
  There you should see the welcome screen asking you to sign in or make an account.
 
@@ -121,6 +119,10 @@ Plex Download
     
     https://www.plex.tv/media-server-downloads/#plex-media-server
     
-Repos to update Plex
+Repos to update Plex.
 
-    https://tcude.net/updating-plex-media-server-on-linux/
+    https://support.plex.tv/articles/235974187-enable-repository-updating-for-supported-linux-server-distributions/
+
+Official Plex install guide
+
+    https://support.plex.tv/articles/200288586-installation/
